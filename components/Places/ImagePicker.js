@@ -66,12 +66,16 @@ const ImagePicker = () => {
 
     setPickImage(result.uri);
   };
+
+  let ImagePreview = <Text>No image taken yet.</Text>;
+
+  if (pickImage) {
+    ImagePreview = <Image style={styles.image} source={{ uri: pickImage }} />;
+  }
+
   return (
     <View>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: pickImage }} />
-      </View>
-
+      <View style={styles.imageContainer}>{ImagePreview}</View>
       <CustomButton onPress={takeImageHandler}>
         <IconButton icon="camera" color="white" size={30} />
       </CustomButton>
@@ -88,6 +92,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary100,
     marginTop: 30,
     marginBottom: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    color: Colors.gray700,
+    borderRadius: 2,
   },
   image: {
     flex: 1,
