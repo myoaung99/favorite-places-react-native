@@ -18,7 +18,7 @@ import {
 } from "expo-image-picker";
 import { Alert } from "react-native";
 import IconButton from "../UI/IconButton";
-import CustomButton from "../UI/CustomButton";
+import OutlineButton from "../UI/OutlineButton";
 
 const ImagePicker = () => {
   const [pickImage, setPickImage] = useState();
@@ -76,9 +76,11 @@ const ImagePicker = () => {
   return (
     <View>
       <View style={styles.imageContainer}>{ImagePreview}</View>
-      <CustomButton onPress={takeImageHandler}>
-        <IconButton icon="camera" color="white" size={30} />
-      </CustomButton>
+      <OutlineButton
+        icon="camera"
+        text="Take Photo"
+        onPress={takeImageHandler}
+      />
     </View>
   );
 };
@@ -90,8 +92,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     backgroundColor: Colors.primary100,
-    marginTop: 30,
-    marginBottom: 15,
+    marginTop: 20,
+    marginBottom: 10,
     justifyContent: "center",
     alignItems: "center",
     color: Colors.gray700,
