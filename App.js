@@ -5,25 +5,39 @@ import { NavigationContainer } from "@react-navigation/native";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import PlaceDetails from "./screens/PlaceDetails";
+import { Colors } from "./constants/colors";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
+    <>
+      <StatusBar style="dark" />
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerTitleAlign: "center" }}>
-          <Stack.Screen name="AllPlaces" component={AllPlaces} />
-          <Stack.Screen name="AddPlace" component={AddPlace} />
+        <Stack.Navigator
+          screenOptions={{
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: Colors.primary500,
+            },
+            headerTintColor: Colors.gray700,
+            contentStyle: {
+              backgroundColor: Colors.gray700,
+            },
+          }}
+        >
+          <Stack.Screen
+            name="AllPlaces"
+            component={AllPlaces}
+            options={{ title: "All Places" }}
+          />
+          <Stack.Screen
+            name="AddPlace"
+            component={AddPlace}
+            options={{ title: "Add Favorite Place" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
-    </View>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

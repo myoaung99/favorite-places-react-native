@@ -1,8 +1,8 @@
 import React from "react";
 import { Pressable, Text, Image, View, StyleSheet } from "react-native";
+import { Colors } from "../../constants/colors";
 
 const PlaceItem = ({ place }) => {
-  console.log(place.imageUri);
   return (
     <View style={styles.outerContainer}>
       <Pressable
@@ -28,12 +28,12 @@ export default PlaceItem;
 const styles = StyleSheet.create({
   outerContainer: {
     borderRadius: 4,
+    backgroundColor: Colors.primary500,
     overflow: "hidden",
   },
   container: {
     padding: 16,
     borderRadius: 4,
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
   },
   imageContainer: {
     width: "100%",
@@ -50,9 +50,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 2,
+    color: Colors.gray700,
   },
   address: {
     fontSize: 12,
+    color: Colors.gray700,
   },
   pressed: {
     opacity: 0.75,
