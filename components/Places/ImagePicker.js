@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
   Button,
+  Pressable,
 } from "react-native";
 import { Colors } from "../../constants/colors";
 import {
@@ -16,6 +17,8 @@ import {
   MediaTypeOptions,
 } from "expo-image-picker";
 import { Alert } from "react-native";
+import IconButton from "../UI/IconButton";
+import CustomButton from "../UI/CustomButton";
 
 const ImagePicker = () => {
   const [pickImage, setPickImage] = useState();
@@ -68,7 +71,10 @@ const ImagePicker = () => {
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={{ uri: pickImage }} />
       </View>
-      <Button title="Take Picture" onPress={takeImageHandler} />
+
+      <CustomButton onPress={takeImageHandler}>
+        <IconButton icon="camera" color="white" size={30} />
+      </CustomButton>
     </View>
   );
 };
@@ -76,27 +82,12 @@ const ImagePicker = () => {
 export default ImagePicker;
 
 const styles = StyleSheet.create({
-  form: {
-    flex: 1,
-    padding: 24,
-  },
-  label: {
-    fontWeight: "bold",
-    color: Colors.primary500,
-    marginBottom: 4,
-  },
-  input: {
-    marginVertical: 8,
-    padding: 8,
-    backgroundColor: Colors.primary100,
-    fontSize: 16,
-  },
   imageContainer: {
     width: "100%",
     height: 200,
     backgroundColor: Colors.primary100,
-    marginTop: 20,
-    marginBottom: 10,
+    marginTop: 30,
+    marginBottom: 15,
   },
   image: {
     flex: 1,
