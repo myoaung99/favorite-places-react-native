@@ -9,8 +9,8 @@ const OutlineButton = ({ icon, text, onPress }) => {
       style={({ pressed }) => [styles.button, pressed && styles.pressed]}
       onPress={onPress}
     >
-      <Text style={styles.buttonText}>{text}</Text>
       <Ionicons name={icon} color={Colors.primary500} size={18} />
+      <Text style={styles.buttonText}>{text}</Text>
     </Pressable>
   );
 };
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: Colors.primary500,
     fontSize: 12,
-    marginRight: 6,
+    marginLeft: 6,
   },
   pressed: {
     opacity: 0.75,

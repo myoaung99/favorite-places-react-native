@@ -17,7 +17,6 @@ import {
   MediaTypeOptions,
 } from "expo-image-picker";
 import { Alert } from "react-native";
-import IconButton from "../UI/IconButton";
 import OutlineButton from "../UI/OutlineButton";
 
 const ImagePicker = () => {
@@ -100,6 +99,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   image: {
-    flex: 1,
+    width: "100%",
+    height: "100%",
+    borderRadius: 2,
   },
 });
