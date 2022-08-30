@@ -2,20 +2,63 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import OutlineButton from "../UI/OutlineButton";
 import { Colors } from "../../constants/colors";
+import {
+  getCurrentPositionAsync,
+  PermissionStatus,
+  useForegroundPermissions,
+} from "expo-location";
 
 const LocationPicker = () => {
-  const getLocationHandler = () => {};
+  const [locationInformationStatus, requestPermission] =
+    useForegroundPermissions();
+
+  const verifyPermissions = async () => {
+    if (locationInformationStatus.status === PermissionStatus.UNDETERMINED) {
+      const permission = await requestPermission();
+      return permission.granted;
+    }
+
+    if (locationInformationStatus.status === PermissionStatus.DENIED) {
+      Alert.alert(
+        "Insufficient Permissions!",
+        "You need to grant location permissions to use this app.",
+        [{ text: "Okay", style: "default" }]
+      );
+
+      return false;
+    }
+
+    return true;
+  };
+
+  const getLocationHandler = async () => {
+    const hasPermission = await verifyPermissions();
+
+    if (!hasPermission) {
+      return;
+    }
+
+    const location = await getCurrentPositionAsync();
+
+    console.log(location.coords.latitude);
+    console.log(location.coords.longitude);
+  };
+
   const pickOnMapHandler = () => {};
 
   return (
     <View>
       <View style={styles.mapPreview}></View>
       <View style={styles.actions}>
-        <View style={{ flex: 1, marginRight: 5 }}>
-          <OutlineButton icon="locate" text="Locate User" />
+        <View>
+          <OutlineButton
+            icon="locate"
+            text="Locate User"
+            onPress={getLocationHandler}
+          />
         </View>
 
-        <View style={{ flex: 1, marginLeft: 5 }}>
+        <View>
           <OutlineButton icon="map" text="Pick On Map" />
         </View>
       </View>
@@ -39,7 +82,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
   },
 });
