@@ -6,13 +6,14 @@ import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import PlaceDetails from "./screens/PlaceDetails";
 import { Colors } from "./constants/colors";
+import Map from "./screens/Map";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <>
-      <StatusBar style="dark" />
+      <StatusBar style="dark" backgroundColor={Colors.primary500} />
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -36,6 +37,7 @@ export default function App() {
             component={AddPlace}
             options={{ title: "Add Favorite Place" }}
           />
+          <Stack.Screen name="Map" component={Map} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

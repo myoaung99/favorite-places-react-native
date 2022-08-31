@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import OutlineButton from "../UI/OutlineButton";
 import { Colors } from "../../constants/colors";
+import { useNavigation } from "@react-navigation/native";
 import {
   getCurrentPositionAsync,
   PermissionStatus,
@@ -11,6 +12,8 @@ import {
 const LocationPicker = () => {
   const [locationInformationStatus, requestPermission] =
     useForegroundPermissions();
+
+  const navigation = useNavigation();
 
   const verifyPermissions = async () => {
     if (locationInformationStatus.status === PermissionStatus.UNDETERMINED) {
@@ -42,9 +45,13 @@ const LocationPicker = () => {
 
     console.log(location.coords.latitude);
     console.log(location.coords.longitude);
+
+    // pass coords to GOOGLE MAP API to get preview image NEED CREDIT CARD
   };
 
-  const pickOnMapHandler = () => {};
+  const pickOnMapHandler = () => {
+    navigation.navigate("Map");
+  };
 
   return (
     <View>
@@ -59,7 +66,11 @@ const LocationPicker = () => {
         </View>
 
         <View>
-          <OutlineButton icon="map" text="Pick On Map" />
+          <OutlineButton
+            icon="map"
+            text="Pick On Map"
+            onPress={pickOnMapHandler}
+          />
         </View>
       </View>
     </View>
