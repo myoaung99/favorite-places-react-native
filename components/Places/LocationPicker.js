@@ -1,19 +1,22 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text } from "react-native";
 import OutlineButton from "../UI/OutlineButton";
 import { Colors } from "../../constants/colors";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   getCurrentPositionAsync,
   PermissionStatus,
   useForegroundPermissions,
 } from "expo-location";
+import { useEffect } from "react";
 
 const LocationPicker = () => {
   const [locationInformationStatus, requestPermission] =
     useForegroundPermissions();
+  const [pickedLocation, setPickedLocation] = useState();
 
   const navigation = useNavigation();
+  const route = useRoute();
 
   const verifyPermissions = async () => {
     if (locationInformationStatus.status === PermissionStatus.UNDETERMINED) {
@@ -43,8 +46,10 @@ const LocationPicker = () => {
 
     const location = await getCurrentPositionAsync();
 
-    console.log(location.coords.latitude);
-    console.log(location.coords.longitude);
+    setPickedLocation({
+      lat: location.coords.latitude,
+      lng: location.coords.longitude,
+    });
 
     // pass coords to GOOGLE MAP API to get preview image NEED CREDIT CARD
   };
@@ -53,9 +58,28 @@ const LocationPicker = () => {
     navigation.navigate("Map");
   };
 
+  const pickOnMapLocation = route.params && {
+    lat: route.params.pickedLatitude,
+    lng: route.params.pickedLongitude,
+  };
+
+  useEffect(() => {
+    if (pickOnMapLocation) {
+      setPickedLocation(pickOnMapLocation);
+    }
+  }, [route.params]);
+
+  console.log("PickedLocation => ", pickedLocation);
+
+  useEffect(() => {
+    // use picked location to get preview image
+  }, []);
+
+  let mapPreview = <Text>No location picked yet!</Text>;
+
   return (
     <View>
-      <View style={styles.mapPreview}></View>
+      <View style={styles.mapPreview}>{mapPreview}</View>
       <View style={styles.actions}>
         <View>
           <OutlineButton

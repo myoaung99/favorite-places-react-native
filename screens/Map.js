@@ -18,8 +18,8 @@ const Map = ({ navigation }) => {
         style: "default",
         onPress: () =>
           navigation.navigate("AddPlace", {
-            lat: selectedLocation.lat,
-            lng: selectedLocation.lng,
+            pickedLatitude: selectedLocation.lat,
+            pickedLongitude: selectedLocation.lng,
           }),
       },
     ]);

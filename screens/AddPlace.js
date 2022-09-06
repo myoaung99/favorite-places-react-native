@@ -2,10 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import PlaceForm from "../components/Places/PlaceForm";
 
-const AddPlace = ({ route }) => {
-  if (route) {
-    console.log(route.params);
-  }
+const AddPlace = () => {
   return (
     <View style={styles.container}>
       <PlaceForm />
