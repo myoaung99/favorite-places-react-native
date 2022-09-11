@@ -15,6 +15,8 @@ const AllPlaces = ({ navigation, route }) => {
     }
   }, [isFoucsed, route.params]);
 
+
+
   const headerRightIconButton = ({ tintColor }) => (
     <IconButton
       icon="add"
