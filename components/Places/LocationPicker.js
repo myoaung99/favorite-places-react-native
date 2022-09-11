@@ -14,9 +14,10 @@ import {
 } from "expo-location";
 import { useEffect } from "react";
 
-const LocationPicker = () => {
+const LocationPicker = ({ onPickedLocation }) => {
   const [locationInformationStatus, requestPermission] =
-    useForegroundPermissions();
+      useForegroundPermissions();
+
   const [pickedLocation, setPickedLocation] = useState();
 
   const navigation = useNavigation();
@@ -31,9 +32,9 @@ const LocationPicker = () => {
 
     if (locationInformationStatus.status === PermissionStatus.DENIED) {
       Alert.alert(
-        "Insufficient Permissions!",
-        "You need to grant location permissions to use this app.",
-        [{ text: "Okay", style: "default" }]
+          "Insufficient Permissions!",
+          "You need to grant location permissions to use this app.",
+          [{ text: "Okay", style: "default" }]
       );
 
       return false;
@@ -64,6 +65,7 @@ const LocationPicker = () => {
   };
 
   useEffect(() => {
+    // isFocus === user is on this screen
     if (isFoucs && route.params) {
       const pickOnMapLocation = {
         lat: route.params.pickedLatitude,
@@ -72,9 +74,14 @@ const LocationPicker = () => {
 
       setPickedLocation(pickOnMapLocation);
     }
-  }, [isFoucs, route.params]);
+  }, [isFoucs, route]);
 
-  console.log("PickedLocation => ", pickedLocation);
+  useEffect(() => {
+    if (pickedLocation) {
+      // use google api to get human readable address
+      onPickedLocation(pickedLocation);
+    }
+  }, [pickedLocation, onPickedLocation]);
 
   useEffect(() => {
     // use picked location to get preview image
@@ -83,26 +90,26 @@ const LocationPicker = () => {
   let mapPreview = <Text>No location picked yet!</Text>;
 
   return (
-    <View>
-      <View style={styles.mapPreview}>{mapPreview}</View>
-      <View style={styles.actions}>
-        <View>
-          <OutlineButton
-            icon="locate"
-            text="Locate User"
-            onPress={getLocationHandler}
-          />
-        </View>
+      <View>
+        <View style={styles.mapPreview}>{mapPreview}</View>
+        <View style={styles.actions}>
+          <View>
+            <OutlineButton
+                icon="locate"
+                text="Locate User"
+                onPress={getLocationHandler}
+            />
+          </View>
 
-        <View>
-          <OutlineButton
-            icon="map"
-            text="Pick On Map"
-            onPress={pickOnMapHandler}
-          />
+          <View>
+            <OutlineButton
+                icon="map"
+                text="Pick On Map"
+                onPress={pickOnMapHandler}
+            />
+          </View>
         </View>
       </View>
-    </View>
   );
 };
 
@@ -122,7 +129,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
 });
