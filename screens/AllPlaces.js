@@ -6,12 +6,12 @@ import { places } from "../data/places";
 import {useIsFocused} from "@react-navigation/native";
 
 const AllPlaces = ({ navigation, route }) => {
-  // const [loadedPlaces, setLoadedPlaces] = useState();
+  const [loadedPlaces, setLoadedPlaces] = useState(places);
   const isFoucsed = useIsFocused();
 
   useEffect(()=>{
     if(isFoucsed && route?.params){
-      console.log(route.params.place)
+      setLoadedPlaces(currentPlaces => [...currentPlaces, route.params.place]);
     }
   }, [isFoucsed, route.params]);
 
@@ -32,7 +32,7 @@ const AllPlaces = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <PlacesList places={places} />
+      <PlacesList places={loadedPlaces} />
     </View>
   );
 };
