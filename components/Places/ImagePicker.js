@@ -15,11 +15,12 @@ import {
   PermissionStatus,
   useCameraPermissions,
   MediaTypeOptions,
+  launchImageLibraryAsync,
 } from "expo-image-picker";
 import { Alert } from "react-native";
 import OutlineButton from "../UI/OutlineButton";
 
-const ImagePicker = () => {
+const ImagePicker = ({ onPickedImage }) => {
   const [pickImage, setPickImage] = useState();
   const [cameraPermissionInformation, requestPermission] =
     useCameraPermissions();
@@ -64,6 +65,7 @@ const ImagePicker = () => {
     }
 
     setPickImage(result.uri);
+    onPickedImage(result.uri);
   };
 
   let ImagePreview = <Text>No image taken yet.</Text>;

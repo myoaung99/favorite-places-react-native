@@ -7,12 +7,45 @@ import AddPlace from "./screens/AddPlace";
 import PlaceDetails from "./screens/PlaceDetails";
 import { Colors } from "./constants/colors";
 import Map from "./screens/Map";
+import { useEffect } from "react";
+import { initDB } from "./util/database";
+import { useState, useCallback } from "react";
+import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
 
+// SplashScreen.preventAutoHideAsync();
+
 export default function App() {
+  // const [dbInitialized, setDbInitialized] = useState(false);
+
+  // useEffect(() => {
+  //   const init = async () => {
+  //     try {
+  //       await initDB();
+  //
+  //     } catch (e) {
+  //       console.warn(e);
+  //     }finally {
+  //         setDbInitialized(true);
+  //     }
+  //   };
+  //
+  //   init();
+  // }, []);
+  //
+  // console.log(dbInitialized);
+
+  // if (dbInitialized) {
+  //   SplashScreen.hideAsync();
+  // }
+  //
+  // if (!dbInitialized) {
+  //   return null;
+  // }
+
   return (
-    <>
+    <View>
       <StatusBar style="dark" backgroundColor={Colors.primary500} />
       <NavigationContainer>
         <Stack.Navigator
@@ -40,6 +73,6 @@ export default function App() {
           <Stack.Screen name="Map" component={Map} />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </View>
   );
 }
