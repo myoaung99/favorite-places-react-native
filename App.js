@@ -54,12 +54,12 @@ export default function App() {
                         component={AllPlaces}
                         options={{title: "All Places"}}
                     />
-                    <Stack.Screen
-                        name="AddPlace"
-                        component={AddPlace}
-                        options={{title: "Add Favorite Place"}}
-                    />
                     <Stack.Screen name="Map" component={Map}/>
+                    <Stack.Screen
+                        name="PlaceDetails"
+                        component={PlaceDetails}
+                        options={{title: "Place Detail"}}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
 

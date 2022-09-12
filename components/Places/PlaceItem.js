@@ -1,11 +1,14 @@
 import React from "react";
 import { Pressable, Text, Image, View, StyleSheet } from "react-native";
 import { Colors } from "../../constants/colors";
+import {useNavigation} from "@react-navigation/native";
 
-const PlaceItem = ({ place }) => {
+const PlaceItem = ({ place, onPress }) => {
+
   return (
       <View style={styles.outerContainer}>
         <Pressable
+            onPress={onPress.bind(this, place.id)}
             style={({ pressed }) => [styles.container, pressed && styles.pressed]}
         >
           <View style={styles.imageContainer}>

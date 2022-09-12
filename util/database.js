@@ -54,7 +54,9 @@ export const fetchPlaces = ()=>{
                 (_,result)=>{
                     const places = [];
                     for (const dp of result.rows._array) {
-                        places.push(new Place(dp.id, dp.title, dp.address, {lat: dp.lat, lng: dp.lng}, dp.imageUri))
+                        places.push(
+                            new Place(dp.id, dp.title, dp.address, {lat: dp.lat, lng: dp.lng}, dp.imageUri)
+                        )
                     }
                     resolve(places);
                 },
