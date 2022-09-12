@@ -9,7 +9,7 @@ import { Alert } from "react-native";
 
 const PlaceForm = ({ onAddPlace }) => {
   const [enteredTitle, setEnteredTitle] = useState(null);
-  const [pickedImage, setPickedImage] = useState(null);null
+  const [pickedImage, setPickedImage] = useState(null);
   const [pickedLocaiton, setPickedLocation] = useState(null);
 
   const onChangeTextHandler = (enteredText) => {
@@ -45,7 +45,7 @@ const PlaceForm = ({ onAddPlace }) => {
 
     const place = new Place(
         Math.random().toString() + new Date().toString(),
-        enteredTitle,
+        enteredTitle.toString(),
         pickedLocaiton.lat.toString() + pickedLocaiton.lng.toString(),
         pickedLocaiton,
         pickedImage.uri

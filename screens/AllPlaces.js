@@ -1,21 +1,23 @@
 import React, {useEffect, useLayoutEffect, useState} from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import {StyleSheet, View} from "react-native";
 import PlacesList from "../components/Places/PlacesList";
 import IconButton from "../components/UI/IconButton";
-import { places } from "../data/places";
 import {useIsFocused} from "@react-navigation/native";
+import {fetchPlaces} from "../util/database";
 
-const AllPlaces = ({ navigation, route }) => {
-  const [loadedPlaces, setLoadedPlaces] = useState(places);
+const AllPlaces = ({ navigation }) => {
+  const [loadedPlaces, setLoadedPlaces] = useState([]);
   const isFoucsed = useIsFocused();
 
   useEffect(()=>{
-    if(isFoucsed && route?.params){
-      setLoadedPlaces(currentPlaces => [...currentPlaces, route.params.place]);
+    const loadPlaces = async ()=>{
+      const places = await fetchPlaces();
+      setLoadedPlaces(places)
     }
-  }, [isFoucsed, route.params]);
-
-
+    if(isFoucsed){
+      loadPlaces();
+    }
+  }, [isFoucsed]);
 
   const headerRightIconButton = ({ tintColor }) => (
     <IconButton
@@ -31,6 +33,8 @@ const AllPlaces = ({ navigation, route }) => {
       headerRight: headerRightIconButton,
     });
   }, []);
+
+
 
   return (
     <View style={styles.container}>

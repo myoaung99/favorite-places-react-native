@@ -19,11 +19,11 @@ export default function App() {
     const [dbInitialized, setDbInitialized] = useState(false);
 
     useEffect(() => {
+
         init().then(() => {
             setDbInitialized(true)
         }).catch((err) => console.warn(err));
     }, []);
-
 
     if (dbInitialized) {
         SplashScreen.hideAsync()
