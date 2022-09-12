@@ -1,18 +1,48 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {ScrollView, View, Text, StyleSheet, Image} from "react-native";
 import OutlineButton from "../components/UI/OutlineButton";
 import {Colors} from "../constants/colors";
+import {fetchDetailPlace} from "../util/database";
 
-const PlaceDetails = () => {
+const PlaceDetails = ({navigation, route}) => {
+
+  const [loadedPlace, setLoadedPlace] = useState(null);
+
+  const placeDetailId = route.params.id;
+  console.log(!!placeDetailId && placeDetailId)
+
+  useEffect(()=>{
+    const fetchPlace = async ()=>{
+      const place = await fetchDetailPlace(placeDetailId);
+      setLoadedPlace(place);
+      navigation.setOptions({
+            title: place.title
+          }
+      )
+    }
+
+    fetchPlace();
+
+  }, [placeDetailId]);
+
+  if(!loadedPlace){
+    return <View style={styles.fallbackContainer}>
+      <Text style={styles.fallbackText}>Loading...</Text>
+    </View>
+  }
+
   return (
     <ScrollView >
-      <Image style={styles.image}/>
+      <Image style={styles.image} source={{uri: loadedPlace.imageUri}}/>
       <View style={styles.locationContainer}>
         <View style={styles.addressContainer}>
-          <Text style={styles.address}>ADDRESS</Text>
+          <Text style={styles.address}>{loadedPlace.address}</Text>
         </View>
 
-        <OutlineButton text="View On Map" icon="map" onPress={()=>{}}/>
+        <View style={styles.buttonContainer}>
+          <OutlineButton text="View On Map" icon="map" onPress={()=>{}}/>
+        </View>
+
       </View>
     </ScrollView>
   );
@@ -28,6 +58,7 @@ const styles = StyleSheet.create({
   },
   locationContainer: {
     padding: 20,
+    alignItems: "center"
   },
   addressContainer: {
     alignItems: 'center',
@@ -38,6 +69,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     color: Colors.primary500,
+    textAlign: "center"
   },
-
+  buttonContainer: {
+    width: '75%',
+  },
+  fallbackContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  fallbackText: {
+    color: Colors.primary500
+  }
 });
