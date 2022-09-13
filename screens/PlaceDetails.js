@@ -9,7 +9,6 @@ const PlaceDetails = ({navigation, route}) => {
   const [loadedPlace, setLoadedPlace] = useState(null);
 
   const placeDetailId = route.params.id;
-  console.log(!!placeDetailId && placeDetailId)
 
   useEffect(()=>{
     const fetchPlace = async ()=>{
@@ -24,6 +23,13 @@ const PlaceDetails = ({navigation, route}) => {
     fetchPlace();
 
   }, [placeDetailId]);
+
+  const openReadOnlyMapHandler = ()=>{
+    navigation.navigate('Map', {
+      lat: loadedPlace.lat,
+      lng: loadedPlace.lng
+    })
+  }
 
   if(!loadedPlace){
     return <View style={styles.fallbackContainer}>
@@ -40,7 +46,7 @@ const PlaceDetails = ({navigation, route}) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <OutlineButton text="View On Map" icon="map" onPress={()=>{}}/>
+          <OutlineButton text="View On Map" icon="map" onPress={openReadOnlyMapHandler}/>
         </View>
 
       </View>
