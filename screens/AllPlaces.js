@@ -1,20 +1,23 @@
-import React, { useLayoutEffect, useState, useEffect } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React, {useEffect, useLayoutEffect, useState} from "react";
+import {StyleSheet, View} from "react-native";
 import PlacesList from "../components/Places/PlacesList";
 import IconButton from "../components/UI/IconButton";
-import { places } from "../data/places";
-import { useIsFocused } from "@react-navigation/native";
+import {useIsFocused} from "@react-navigation/native";
+import {fetchPlaces} from "../util/database";
 
-const AllPlaces = ({ navigation, route }) => {
-  const [loadedPlaces, setLoadedPlaces] = useState(places);
-  const isFocus = useIsFocused();
+const AllPlaces = ({ navigation }) => {
+  const [loadedPlaces, setLoadedPlaces] = useState([]);
+  const isFoucsed = useIsFocused();
 
-  useEffect(() => {
-    if (isFocus && route.params) {
-      setLoadedPlaces((current) => [...current, route.params.place]);
+  useEffect(()=>{
+    const loadPlaces = async ()=>{
+      const places = await fetchPlaces();
+      setLoadedPlaces(places)
     }
-  }, [isFocus]);
-
+    if(isFoucsed){
+      loadPlaces();
+    }
+  }, [isFoucsed]);
 
   const headerRightIconButton = ({ tintColor }) => (
     <IconButton
@@ -31,11 +34,11 @@ const AllPlaces = ({ navigation, route }) => {
     });
   }, []);
 
-  console.log("All place screen is mounted.")
+
 
   return (
     <View style={styles.container}>
-      <PlacesList places={[]} />
+      <PlacesList places={loadedPlaces} />
     </View>
   );
 };

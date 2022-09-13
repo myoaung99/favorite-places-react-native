@@ -16,7 +16,7 @@ import { useEffect } from "react";
 
 const LocationPicker = ({ onPickedLocation }) => {
   const [locationInformationStatus, requestPermission] =
-    useForegroundPermissions();
+      useForegroundPermissions();
 
   const [pickedLocation, setPickedLocation] = useState();
 
@@ -32,9 +32,9 @@ const LocationPicker = ({ onPickedLocation }) => {
 
     if (locationInformationStatus.status === PermissionStatus.DENIED) {
       Alert.alert(
-        "Insufficient Permissions!",
-        "You need to grant location permissions to use this app.",
-        [{ text: "Okay", style: "default" }]
+          "Insufficient Permissions!",
+          "You need to grant location permissions to use this app.",
+          [{ text: "Okay", style: "default" }]
       );
 
       return false;
@@ -90,26 +90,26 @@ const LocationPicker = ({ onPickedLocation }) => {
   let mapPreview = <Text>No location picked yet!</Text>;
 
   return (
-    <View>
-      <View style={styles.mapPreview}>{mapPreview}</View>
-      <View style={styles.actions}>
-        <View>
-          <OutlineButton
-            icon="locate"
-            text="Locate User"
-            onPress={getLocationHandler}
-          />
-        </View>
+      <View>
+        <View style={styles.mapPreview}>{mapPreview}</View>
+        <View style={styles.actions}>
+          <View>
+            <OutlineButton
+                icon="locate"
+                text="Locate User"
+                onPress={getLocationHandler}
+            />
+          </View>
 
-        <View>
-          <OutlineButton
-            icon="map"
-            text="Pick On Map"
-            onPress={pickOnMapHandler}
-          />
+          <View>
+            <OutlineButton
+                icon="map"
+                text="Pick On Map"
+                onPress={pickOnMapHandler}
+            />
+          </View>
         </View>
       </View>
-    </View>
   );
 };
 

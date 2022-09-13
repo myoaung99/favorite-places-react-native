@@ -23,7 +23,7 @@ import OutlineButton from "../UI/OutlineButton";
 const ImagePicker = ({ onPickedImage }) => {
   const [pickImage, setPickImage] = useState();
   const [cameraPermissionInformation, requestPermission] =
-    useCameraPermissions();
+      useCameraPermissions();
 
   // check and request permission
   const verifyPermissions = async () => {
@@ -34,9 +34,9 @@ const ImagePicker = ({ onPickedImage }) => {
 
     if (cameraPermissionInformation.status === PermissionStatus.DENIED) {
       Alert.alert(
-        "Insufficient Permissions!",
-        "You need to grant camera permissions to use this app.",
-        [{ text: "Okay", style: "default" }]
+          "Insufficient Permissions!",
+          "You need to grant camera permissions to use this app.",
+          [{ text: "Okay", style: "default" }]
       );
 
       return false;
@@ -75,14 +75,14 @@ const ImagePicker = ({ onPickedImage }) => {
   }
 
   return (
-    <View>
-      <View style={styles.imageContainer}>{ImagePreview}</View>
-      <OutlineButton
-        icon="camera"
-        text="Take Photo"
-        onPress={takeImageHandler}
-      />
-    </View>
+      <View>
+        <View style={styles.imageContainer}>{ImagePreview}</View>
+        <OutlineButton
+            icon="camera"
+            text="Take Photo"
+            onPress={takeImageHandler}
+        />
+      </View>
   );
 };
 

@@ -8,9 +8,9 @@ import { Place } from "../../modal/place-modal";
 import { Alert } from "react-native";
 
 const PlaceForm = ({ onAddPlace }) => {
-  const [enteredTitle, setEnteredTitle] = useState();
-  const [pickedImage, setPickedImage] = useState();
-  const [pickedLocaiton, setPickedLocation] = useState();
+  const [enteredTitle, setEnteredTitle] = useState(null);
+  const [pickedImage, setPickedImage] = useState(null);
+  const [pickedLocaiton, setPickedLocation] = useState(null);
 
   const onChangeTextHandler = (enteredText) => {
     setEnteredTitle(enteredText);
@@ -25,9 +25,9 @@ const PlaceForm = ({ onAddPlace }) => {
   }, []);
 
   const reset = () => {
-    setEnteredTitle();
-    setPickedImage();
-    setPickedLocation();
+    setEnteredTitle(null);
+    setPickedImage(null);
+    setPickedLocation(null);
   };
 
   const submitHandler = () => {
@@ -44,31 +44,31 @@ const PlaceForm = ({ onAddPlace }) => {
     }
 
     const place = new Place(
-      Math.random().toString() + new Date().toString(),
-      enteredTitle,
-      pickedLocaiton.lat.toString() + pickedLocaiton.lng.toString(),
-      pickedLocaiton,
-      pickedImage.uri
+        Math.random().toString() + new Date().toString(),
+        enteredTitle.toString(),
+        pickedLocaiton.lat.toString() + pickedLocaiton.lng.toString(),
+        pickedLocaiton,
+        pickedImage.uri
     );
     onAddPlace(place);
     reset();
   };
 
   return (
-    <ScrollView style={styles.form}>
-      <Text style={styles.label}>Title</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeTextHandler}
-        value={enteredTitle}
-      />
+      <ScrollView style={styles.form}>
+        <Text style={styles.label}>Title</Text>
+        <TextInput
+            style={styles.input}
+            onChangeText={onChangeTextHandler}
+            value={enteredTitle}
+        />
 
-      <ImagePicker onPickedImage={onPickedImageHandler} />
-      <LocationPicker onPickedLocation={onPickedLocationHandler} />
-      <View style={styles.buttonContainer}>
-        <Button onPress={submitHandler}>Submit</Button>
-      </View>
-    </ScrollView>
+        <ImagePicker onPickedImage={onPickedImageHandler} />
+        <LocationPicker onPickedLocation={onPickedLocationHandler} />
+        <View style={styles.buttonContainer}>
+          <Button onPress={submitHandler}>Submit</Button>
+        </View>
+      </ScrollView>
   );
 };
 
